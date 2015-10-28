@@ -1,0 +1,33 @@
+GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK'
+env=Environment()
+
+env.Append(CPPPATH = Split(GestoosDir + '/include'))
+env.Append(CPPPATH = Split('/usr/local/opt/openni2/include'))
+env.Append(CPPPATH = Split('/usr/local/opt/opencv3/include'))
+env.Append(CPPPATH = Split('/usr/local/opt/boost-1.54/include'))
+
+env.Append(LIBPATH = Split(GestoosDir+'/lib/release /usr/local/opt/openni2/lib /usr/local/opt/opencv3/lib /usr/local/opt/boost-1.54/lib'))
+
+env.Append(LIBS = Split('fezoolib boost_program_options-mt boost_system-mt OpenNI2 curl boost_serialization-mt boost_thread-mt')) 
+env.Append(LIBS = Split('asound')) 
+env.Append(LIBS = Split('jsonrpc jsoncpp')) 
+
+env.Append(LINKFLAGS = Split('-lopencv_calib3d -lopencv_core -lopencv_cudaarithm -lopencv_cudabgsegm -lopencv_cudacodec -lopencv_cudafeatures2d -lopencv_cudafilters -lopencv_cudaimgproc -lopencv_cudalegacy -lopencv_cudaobjdetect -lopencv_cudaoptflow -lopencv_cudastereo -lopencv_cudawarping -lopencv_cudev -lopencv_features2d -lopencv_flann -lopencv_hal -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml -lopencv_objdetect -lopencv_photo -lopencv_shape -lopencv_stitching -lopencv_superres -lopencv_video -lopencv_videoio -lopencv_videostab -lopencv_viz'))
+
+#env.Program(Glob('app/RegistrationTool/src/*.cpp'))
+#env.Program(Glob('app/GestoosServer/src/*.cpp'))
+env.Program(Glob('app/GestoosDetector/src/*.cpp'))
+#env.Program(Glob('app/RGBDRecorder/src/*.cpp'))
+#env.Program(Glob('app/WHAIDemo/src/*.cpp'))
+#env.Program(Glob('app/seqdemo/src/thread.cpp'))
+#env.Program(Glob('app/GestoosDetector_efrem/src/GestoosDetector.cpp'))
+#env.Program(Glob('app/WHAIDemo_efrem/src/*.cpp'))
+#
+#env.Program(Glob('app/json/src/server/*.cpp'))
+#env.Program(Glob('app/json/src/client/*.cpp'))
+#env.Program(Glob('app/MyJson/src/server/*.cpp'))
+#env.Program(Glob('app/MyJson/src/client/*.cpp'))
+#env.Program(Glob('app/MyJson/src/client1/*.cpp'))
+#env.Program(Glob('app/Interactor/src/*.cpp'))
+#env.Program(Glob('app/version_json/src/interactor_client/*.cpp'))
+#env.Program(Glob('app/version_json/src/server/*.cpp'))
