@@ -1,0 +1,8 @@
+[Depth]
+300.0
+3500.0
+[Gestures]
+Name	ID	Usage	Model_Filename	DetectionThreshold	PruneDepth
+HAND	1	SYM	../../data/Hand_huge.dat	5.0 0
+CLOSE	3	RIGHT	../../data/G_Hand_Close_light.dat 3.0 0 0
+

@@ -11,6 +11,7 @@ myClientInteractor::myClientInteractor(){
 	tracker->set("errors", arr);
 	tracker->stringify(std::cout, 0);
 	std::cout << std::endl;
+	x1 = y1 = z1 = x2 = y2 = z2 = 0;
 	}
 
 bool myClientInteractor::setConection(){
@@ -68,6 +69,7 @@ bool myClientInteractor::sendRequest(Poco::Net::HTTPClientSession& session, Poco
 
 void myClientInteractor::ToJsonStyle(gestoos::nui::Interactor &_interactor){
 	int joints_count = 0,left,right;
+	
 	tracker->clear();
 	arr->clear();
 	left = _interactor.get_hand_gestures().first.id;
@@ -87,20 +89,43 @@ void myClientInteractor::ToJsonStyle(gestoos::nui::Interactor &_interactor){
 	arr->clear();
 	if(_interactor.get_hands().first.is_present()){
 			joints_count=1;
-			
-					arr->set(0, _interactor.get_hands().first.get_pos().x);
-					arr->set(1, _interactor.get_hands().first.get_pos().y);
-					arr->set(2, _interactor.get_hands().first.get_pos().z);
+			x1 = ((_interactor.get_hands().first.get_pos().x*2)-320)*(_interactor.get_hands().first.get_pos().z/534)/1000;
+			y1 = ((240 - _interactor.get_hands().first.get_pos().y*2))*(_interactor.get_hands().first.get_pos().z/535)/1000;
+			z1 = _interactor.get_hands().first.get_pos().z/1000;
+					//arr->set(0, _interactor.get_hands().first.get_pos().x);
+					arr->set(0, x1);
+					//arr->set(1, _interactor.get_hands().first.get_pos().y);
+					arr->set(1, y1);
+					arr->set(2, z1);
 		//std::cout << _interactor.get_hands().first.get_pos().x << std::endl;
+	}else{
+		
+		arr->set(0, x1);			
+		arr->set(1, y1);
+		arr->set(2, z1);
+		
 	}
+	
+
+	
+	
 	if(_interactor.get_hands().second.is_present()){
 		joints_count = 2; 
+		x2 = ((_interactor.get_hands().second.get_pos().x*2)-320)*(_interactor.get_hands().second.get_pos().z/534)/1000;
+		y2 = ((240 - _interactor.get_hands().second.get_pos().y*2))*(_interactor.get_hands().second.get_pos().z/535)/1000;
+		z2 = 	_interactor.get_hands().second.get_pos().z/1000;		
+					arr->set(3, x2);
+					arr->set(4, y2);
+					arr->set(5, z2);
 		
-					arr->set(3, _interactor.get_hands().second.get_pos().x);
-					arr->set(4, _interactor.get_hands().second.get_pos().y);
-					arr->set(5, _interactor.get_hands().second.get_pos().z);
+	}else{
+		arr->set(3, x2);
+		arr->set(4, y2);
+		arr->set(5, z2);
 		
 	}
+	
+	
 
 
 	tracker->set("d3joint", *arr);

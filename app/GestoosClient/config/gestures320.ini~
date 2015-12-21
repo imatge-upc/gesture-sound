@@ -1,0 +1,12 @@
+[Depth]
+700.0
+3000.0
+[Gestures]
+Name	ID	Usage	Model_Filename	DetectionThreshold	PruneDepth
+TEE	11	SYM	../../data/G_Static_Tee.dat	3.0	0
+PAUSE	12	SYM	../../data/G_Static_Pause.dat	4.0	0
+SILENCE 13	SYM	../../data/G_Static_Silence.dat	3.0	0
+AUDIO	14	SYM	../../data/G_Static_Audio.dat	3.0	0
+FFWD	17	RIGHT	../../data/G_Static_Fwd.dat	3.5	0
+RWD	18	LEFT	../../data/G_Static_Fwd.dat	3.5	0
+

@@ -47,6 +47,8 @@ class myClientInteractor{
 	HTTPRequest request;
 	HTTPResponse response;
 	URI uri;
+	public: 
+	float x1 , y1 , z1, x2 , y2, z2;
 	
 	
 	public: 

@@ -1,5 +1,5 @@
-GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.7_prerelease'
-#GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.6/'
+#GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.7_prerelease'
+GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.6/'
 env=Environment()
 
 env.Append(CPPPATH = Split(GestoosDir + '/include'))
@@ -27,7 +27,7 @@ env.Append(LIBS = Split('libPocoFoundation libPocoNet libPocoJSON libPocoUtil'))
 env.Program(Glob('app/GestoosClient/src/*.cpp'))
 env.Program(Glob('app/ServerStateMachine/src/*.cpp'))
 #env.Program('app/ServerStateMachine/src/statemachine',Glob('app/ServerStateMachine/src/*.cpp'))
-env.Program(Glob('app/WHAIDemo/src/interactor.cpp'))
+#env.Program(Glob('app/WHAIDemo/src/*.cpp'))
 #env.Program(Glob('app/RGBDRecorder/src/*.cpp'))
 #env.Program(Glob('app/WHAIDemo/src/*.cpp'))
 #env.Program(Glob('app/seqdemo/src/thread.cpp'))

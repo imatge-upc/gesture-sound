@@ -17,6 +17,8 @@ class StateMachine{
 	
 	StateMachine(FIFOd3data& d_fifo, FIFOmidi& m_fifo);
 	
+	void set_parameters(int method, int control, int note, int val );
+	
 	void process ();
 	
 	void operator ()();

@@ -8,6 +8,14 @@ StateMachine::StateMachine(FIFOd3data& d_fifo, FIFOmidi& m_fifo ):myMachine(m_fi
 
 }
 
+void StateMachine::set_parameters(int method, int control, int note, int val ){
+	 myMachine.params.push_back(method);
+				myMachine.params.push_back(control);
+				myMachine.params.push_back(note);
+				myMachine.params.push_back(val);
+	
+	}
+
 void StateMachine::process(){
 		d3data data;
 		std::vector<int> ref;
@@ -26,43 +34,36 @@ void StateMachine::process(){
 		}
 		*/
 		
-		if(data.get_d3joints().at(0).x < -0.8){
+		if(data.get_d3joints().at(0).x < -0.8||data.get_d3joints().at(1).x < -0.8){
 			 if(myMachine.ispause){
-			    myMachine.params.push_back(NOTEON);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(1);
+				set_parameters(NOTEON,0,0,1);
+			    //myMachine.params.push_back(NOTEON);
+				//myMachine.params.push_back(0);
+				//myMachine.params.push_back(0);
+				//myMachine.params.push_back(1);
 				myMachine.process_event(EvPress());
 				myMachine.params.resize(0);
 				
 			}else{
-				myMachine.params.push_back(NOTEON);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(1);
-				myMachine.params.push_back(1);
+				set_parameters(NOTEON,0,1,1);
 				myMachine.process_event(EvPress());
 				myMachine.params.resize(0);
 				
 			}
-		}else if(data.get_d3joints().at(1).x > 0.6){
+		}else if(data.get_d3joints().at(1).x > 0.6||data.get_d3joints().at(0).x > 0.6){
 			if(myMachine.ispause){
-			myMachine.params.push_back(NOTEON);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(2);
-				myMachine.params.push_back(1);
+				set_parameters(NOTEON,0,2,1);
+			
 				myMachine.process_event(EvPress());
 				myMachine.params.resize(0);
 				
 			}else{
-				myMachine.params.push_back(NOTEON);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(3);
-				myMachine.params.push_back(1);
+				set_parameters(NOTEON,0,3,1);
 				myMachine.process_event(EvPress());
 				myMachine.params.resize(0);
 				
 			}
-		}else if(data.get_d3joints().at(1).x < 0.6&&data.get_d3joints().at(0).x > -0.8){
+		}else if(data.get_d3joints().at(1).x < 0.6&&data.get_d3joints().at(0).x < 0.6&&data.get_d3joints().at(0).x > -0.8&&data.get_d3joints().at(1).x > -0.8){
 			myMachine.process_event(EvRelease());
 		}
 		
@@ -73,10 +74,7 @@ void StateMachine::process(){
 			if(!data.get_d3joints().empty()){
 			aux =  (int)(data.get_d3joints().at(1).y/step);
 			std::cout << aux << "   " << data.get_d3joints().at(1).z << "---" << data.get_d3joints().at(1).y  << std::endl;
-			  myMachine.params.push_back(CONTROL);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(0);
-				myMachine.params.push_back(aux);
+			 set_parameters(CONTROL,0,0,aux);
 			myMachine.process_event(EvSlide());
 			myMachine.params.resize(0);
 			
