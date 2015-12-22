@@ -15,6 +15,11 @@ class StateMachine{
 	
 	public: 
 	
+	float last_x = 0, last_y = 0, last_z = 0; //NEW!!!!!
+	
+	
+	public: 
+	
 	StateMachine(FIFOd3data& d_fifo, FIFOmidi& m_fifo);
 	
 	void set_parameters(int method, int control, int note, int val );

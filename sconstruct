@@ -1,5 +1,5 @@
-GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.7_prerelease'
-#GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.6/'
+#GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.7_prerelease'
+GestoosDir = '/imatge/eblazquez/workspace/GestoosSDK_v0.6/'
 env=Environment()
 
 env.Append(CPPPATH = Split(GestoosDir + '/include'))
@@ -14,7 +14,7 @@ env.Append(CPPPATH = Split('/usr/local/src/poco/poco/Util/include/Poco'))
 
 env.Append(LIBPATH = Split(GestoosDir+'/lib/release /usr/local/opt/openni2/lib /usr/local/opt/opencv3/lib /usr/local/opt/boost-1.54/lib'))
 
-env.Append(LIBS = Split('fezoolib boost_program_options-mt boost_system-mt OpenNI2 curl boost_serialization-mt boost_thread-mt')) 
+env.Append(LIBS = Split('fezoolib boost_program_options-mt boost_system-mt OpenNI2 curl boost_serialization-mt boost_thread-mt boost_filesystem-mt')) 
 env.Append(LIBS = Split('asound')) 
 env.Append(LIBS = Split('jsonrpc jsoncpp')) 
 

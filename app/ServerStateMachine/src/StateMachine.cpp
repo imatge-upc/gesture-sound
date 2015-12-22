@@ -3,7 +3,8 @@
 
 
 #define maxY 0.70
-#define step 0.0055
+#define stepx 0.055
+#define stepy 0.0055
 StateMachine::StateMachine(FIFOd3data& d_fifo, FIFOmidi& m_fifo ):myMachine(m_fifo),_sharedfifo(d_fifo){
 
 }
@@ -20,7 +21,7 @@ void StateMachine::process(){
 		d3data data;
 		std::vector<int> ref;
 		data = _sharedfifo.get();
-		//std::cout << data.toString() << std::endl;
+		std::cout <<"!!!!!!PROCESSS!!!!!!!!!" << std::endl;
 		/*if(data.get_h_st().at(0)==3&&isOpen){
 			std::cout << "NOTE ON!!\n" << std::endl;
 			//playpause.process_event(EvStart());
@@ -69,9 +70,49 @@ void StateMachine::process(){
 		
 		
 		
-		if(data.get_d3joints().at(1).z < 0.9 && data.get_d3joints().at(1).y > 0){
+		if(data.get_d3joints().at(1).z < 0.9 && data.get_d3joints().at(1).y > 0 && data.get_d3joints().at(1).x > 0){
 			int aux; 
-			if(!data.get_d3joints().empty()){
+			
+			/*Bloc NEW!! SLIDER PRO*/
+			float diffX, diffY, diff_diff; 
+			
+			diffX = abs(data.get_d3joints().at(1).x - last_x);
+			diffY = abs(data.get_d3joints().at(1).y - last_y);
+			diff_diff = abs(diffX-diffY);
+			std::cout << "DIFFX === " << diffX << std::endl;
+			std::cout << "DIFFY === " << diffY << std::endl;
+			
+			/*Final bloc*/
+			
+			
+				if(diffX > 7*diffY){
+					if(!data.get_d3joints().empty()){
+						std::cout << "XXX" << std::endl;
+						aux =  (int)(data.get_d3joints().at(1).x/stepx);
+						std::cout << aux << "   " << data.get_d3joints().at(1).z << "---" << data.get_d3joints().at(1).y  << std::endl;
+						set_parameters(CONTROL,0,0,aux);
+						myMachine.process_event(EvSlide());
+						myMachine.params.resize(0);
+			
+			//std::cout << "HERE NO PROBLEMS!!" << std::endl;
+					}
+				}else if(diffY > 7*diffX){
+					if(!data.get_d3joints().empty()){
+						std::cout << "YYY" << std::endl;
+						aux =  (int)(data.get_d3joints().at(1).y/stepy);
+						std::cout << aux << "   " << data.get_d3joints().at(1).z << "---" << data.get_d3joints().at(1).y  << std::endl;
+						set_parameters(CONTROL,0,7,aux);
+						myMachine.process_event(EvSlide());
+						myMachine.params.resize(0);
+			
+			//std::cout << "HERE NO PROBLEMS!!" << std::endl;
+					}
+					
+				}
+				
+			
+			
+			/*if(!data.get_d3joints().empty()){
 			aux =  (int)(data.get_d3joints().at(1).y/step);
 			std::cout << aux << "   " << data.get_d3joints().at(1).z << "---" << data.get_d3joints().at(1).y  << std::endl;
 			 set_parameters(CONTROL,0,0,aux);
@@ -79,12 +120,15 @@ void StateMachine::process(){
 			myMachine.params.resize(0);
 			
 			//std::cout << "HERE NO PROBLEMS!!" << std::endl;
-		}
+		}*/
 			
 		}else if(data.get_d3joints().at(1).z > 0.9){
 			std::cout << "EVNNNNOOOO SLIDE" << std::endl;
 			myMachine.process_event(EvNSlide());
 		}	
+		
+		last_x = data.get_d3joints().at(1).x;//NEW!!
+		last_y = data.get_d3joints().at(1).y;//NEW!!
 		
 		/*
 		if(data.get_h_st().at(0)==2){
